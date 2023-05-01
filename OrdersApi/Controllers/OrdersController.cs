@@ -14,9 +14,9 @@ namespace OrdersApi.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private readonly ApiDbContext _context;
+        private readonly OrdersDbContext _context;
 
-        public OrdersController(ApiDbContext context)
+        public OrdersController(OrdersDbContext context)
         {
             _context = context;
         }
@@ -88,7 +88,7 @@ namespace OrdersApi.Controllers
         {
           if (_context.Orders == null)
           {
-              return Problem("Entity set 'ApiDbContext.Orders'  is null.");
+              return Problem("Entity set 'OrdersDbContext.Orders'  is null.");
           }
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();

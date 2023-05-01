@@ -10,8 +10,8 @@ using OrdersApi.Data;
 
 namespace OrdersApi.Migrations
 {
-    [DbContext(typeof(ApiDbContext))]
-    [Migration("20230430152848_AddOrders")]
+    [DbContext(typeof(OrdersDbContext))]
+    [Migration("20230501170359_AddOrders")]
     partial class AddOrders
     {
         /// <inheritdoc />
@@ -29,8 +29,9 @@ namespace OrdersApi.Migrations
                     b.Property<DateTime>("DateOrdered")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OrderedBy")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("OrderedBy")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");

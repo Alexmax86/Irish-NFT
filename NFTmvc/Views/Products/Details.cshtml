@@ -8,7 +8,7 @@
     <p>Author: @Model.CreatedBy</p>
     <p>Category: @Model.Category</p>
     <p>Price @Model.Cost</p>
-    <a class="btn btn-primary">Buy</a>
+    <a asp-area="" asp-controller="Products" asp-action="Buy" asp-route-id="@Model.Id" class="btn btn-primary">Buy</a>
 </div>
 
 

@@ -9,8 +9,8 @@ using OrdersApi.Data;
 
 namespace OrdersApi.Migrations
 {
-    [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(OrdersDbContext))]
+    partial class OrdersDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -26,8 +26,9 @@ namespace OrdersApi.Migrations
                     b.Property<DateTime>("DateOrdered")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OrderedBy")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("OrderedBy")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");

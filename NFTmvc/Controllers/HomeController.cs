@@ -25,52 +25,17 @@ public class HomeController : Controller
     
 
   
-    public async Task<IActionResult> Index()
-    {
-        
-        return View();
-    }
+    
 
     public IActionResult Privacy()
     {
         return View();
     }
-
-    public async Task<IActionResult> NFTProducts()
-    {
-        HttpClient client = _clientFactory.CreateClient(name: "ProductsApi");
-        HttpRequestMessage request = new(method: HttpMethod.Get, requestUri:
-        "/api/product");
-        HttpResponseMessage response = await client.SendAsync(request);
-        IEnumerable<Product>? model = await 
-        response.Content.ReadFromJsonAsync<IEnumerable<Product>>();
-
-        //Console.log return value of API
-        foreach (var item in model)
-        {
-            var json = JsonConvert.SerializeObject(item, Formatting.Indented);
-            Console.WriteLine(json);
-        }
-        return View(model);
-    }
-
-
-
-    public async Task<IActionResult> Details(int id)
-    {
-        HttpClient client = _clientFactory.CreateClient(name: "ProductsApi");
-        string requestUri = $"/api/Product/{id}";
-        HttpRequestMessage request = new(method: HttpMethod.Get, requestUri: requestUri);
-        HttpResponseMessage response = await client.SendAsync(request);
-        Product requestedProduct = await response.Content.ReadFromJsonAsync<Product>();
-
-        //Logs returned object        
-        string jsonString = System.Text.Json.JsonSerializer.Serialize(requestedProduct);
-        Console.WriteLine(jsonString);
-        return View(requestedProduct);
-    }
-
     
+    public IActionResult Index()
+    {
+        return View();
+    }
 
     [Authorize]
     public ActionResult Loginverification()

@@ -1,4 +1,4 @@
-namespace OrdersApi.Models
+namespace NFTmvc.Models
 
 {    public class Order
     {

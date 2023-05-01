@@ -18,7 +18,7 @@ namespace OrdersApi.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderedBy = table.Column<int>(type: "INTEGER", nullable: false),
+                    OrderedBy = table.Column<string>(type: "TEXT", nullable: false),
                     DateOrdered = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>

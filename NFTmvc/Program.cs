@@ -26,6 +26,17 @@ builder.Services.AddHttpClient("ProductsApi", client =>
     );
 });
 
+builder.Services.AddHttpClient("OrdersApi", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5050/");
+    client.DefaultRequestHeaders.Accept.Add(
+        new MediaTypeWithQualityHeaderValue(
+        mediaType: "application/json",
+        quality: 1.0
+        )
+    );
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
