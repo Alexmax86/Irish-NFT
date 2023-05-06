@@ -13,5 +13,7 @@ namespace ProductsApi.Models
         public int Cost { get; set; }
 
         public string ImgLink { get; set; }
+
+        public bool? Sold { get; set;}
     }
 }

@@ -53,7 +53,7 @@ public class ProductsController : Controller
     public async Task<IActionResult> Buy(int id)
     {
         string userId = _userManager.GetUserId(_httpContextAccessor.HttpContext.User);
-        bool deletion = await _apiHelper.DeleteProductAsync(id);
+        bool deletion = await _apiHelper.MarkProductAsSoldAsync(id);
         bool orderCreation = await _apiHelper.CreateOrderAsync(id, userId);
         Console.WriteLine(orderCreation);
         Console.WriteLine("Userid = " + userId);
@@ -68,7 +68,5 @@ public class ProductsController : Controller
     {        
         string userId = _userManager.GetUserId(_httpContextAccessor.HttpContext.User);
         return Content(userId);
-    }
-
-    
+    }    
 }

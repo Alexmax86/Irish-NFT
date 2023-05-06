@@ -11,5 +11,7 @@ public class Product
         public int Cost { get; set; }
 
         public string ImgLink { get; set; }
+
+        public bool? Sold { get; set;}
     }
 }

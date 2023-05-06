@@ -120,5 +120,28 @@ namespace ProductsApi.Controllers
         {
             return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        [HttpGet("/api/getProductsByIds")]
+        public async Task<ActionResult<List<Product>>> GetProductsByIds([FromQuery(Name = "id")] List<int> ids)
+        {
+            // validate input
+            if (ids == null || !ids.Any())
+            {
+                return BadRequest("At least one ID must be provided.");
+            }
+
+            // retrieve products from the database
+            var products = await _context.Products
+                .Where(p => ids.Contains(p.Id))
+                .ToListAsync();
+
+            // check if any products were found
+            if (!products.Any())
+            {
+                return NotFound("No products were found with the specified IDs.");
+            }
+
+            return Ok(products);
+        }
     }
 }

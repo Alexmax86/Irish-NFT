@@ -18,6 +18,13 @@ builder.Services.AddDbContext<OrdersDbContext>(options => options.UseSqlite(conn
 
 var app = builder.Build();
 
+// Resets order table
+using (var scope = app.Services.CreateScope())
+{
+var services = scope.ServiceProvider;
+SeedData.Initialize(services);
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
