@@ -1,15 +1,9 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using NFTmvc.Models;
-using NFTmvc.Areas.Identity.Data;
 using Newtonsoft.Json;
 using System.Text;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
+
+
+//APIHELPER class to manage in a centralized way API calls
 
 namespace NFTmvc.Data;
 
@@ -19,6 +13,7 @@ public class ApiHelper
     private readonly HttpClient _productsHttpClient;
     private readonly HttpClient _ordersHttpClient;    
 
+    //Injects clientfactories for the 2 API dependencies
     public ApiHelper(IHttpClientFactory clientFactory)
     {
         _clientFactory = clientFactory;
@@ -31,6 +26,7 @@ public class ApiHelper
         return new HttpRequestMessage(httpMethod, requestUri);
     }
 
+    // Gets single product from Product API
     public async Task<Product> GetProductAsync(int id)
     {
         string requestUri = $"/api/Product/{id}";
@@ -44,6 +40,7 @@ public class ApiHelper
         return null;
     }
 
+    //Gets all products from the API
     public async Task<IEnumerable<Product>> GetAllProductsAsync()
     {
         string requestUri = $"/api/Product";
@@ -57,14 +54,7 @@ public class ApiHelper
         return null;
     }
 
-    public async Task<bool> DeleteProductAsync(int id)
-    {
-        string requestUri = $"/api/Product/{id}";
-        HttpRequestMessage request = CreateHttpRequestMessage(HttpMethod.Delete, requestUri);
-        HttpResponseMessage response = await _productsHttpClient.SendAsync(request);
-        return response.IsSuccessStatusCode;
-    }
-
+    //Creates new order in Orders Api
     public async Task<bool> CreateOrderAsync(int productId, string orderedBy)
     {
         string requestUri = $"/api/Orders";
@@ -83,6 +73,7 @@ public class ApiHelper
         return response.IsSuccessStatusCode;
     }
 
+    //Retrieves all orders from the Orders API filtering by User ID    
     public async Task<List<Order>> GetOrdersByUserId(string userId)
     {
         
@@ -99,13 +90,14 @@ public class ApiHelper
 
     }
 
+    //Marks a product as `Sold` in the products API
     public async Task<bool> MarkProductAsSoldAsync(int id)
     {
     string requestUri = $"/api/Product/{id}";
     Product product = await GetProductAsync(id);
     if (product != null)
     {
-        product.Sold = true; // set the Sold property to true
+        product.Sold = true; // sets the Sold property to true
         string productJson = JsonConvert.SerializeObject(product);
         HttpContent httpContent = new StringContent(productJson, Encoding.UTF8, "application/json");
         HttpRequestMessage request = CreateHttpRequestMessage(HttpMethod.Put, requestUri);
@@ -116,36 +108,29 @@ public class ApiHelper
     return false;
     }
 
+    //GET request to the Products API. The GET requests passes a batch of IDs. The API is programmed to respond with all the products
+    //with matching IDs
     public async Task<List<Product>> GetProductsByIdsAsync(List<int> ids)
     {
-        // validate input
+        
         if (ids == null || !ids.Any())
         {
             throw new ArgumentException("At least one ID must be provided.");
-        }
+        } 
 
-        // create the query string from the ids
-        string queryString = $"?id={string.Join("&id=", ids)}";
-
-        // send the request to the products APIs
+        string queryString = $"?id={string.Join("&id=", ids)}";         
         string requestUri = $"/api/getProductsByIds{queryString}";
         HttpResponseMessage response = await _productsHttpClient.GetAsync(requestUri);
 
-        // check if the response is successful
+        
         if (response.IsSuccessStatusCode)
         {
-            // deserialize the response body to a list of products
+            
             List<Product> products = await response.Content.ReadFromJsonAsync<List<Product>>();
             return products;
         }
 
-        // if the response is ne ot successful, throw an exception
+        
         throw new HttpRequestException($"Failed to get products by IDs. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
     }
-
-   
-
-    
-
-   
 }

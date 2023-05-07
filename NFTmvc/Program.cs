@@ -14,7 +14,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//Add Ihttp
+//Adds HttoClient for Products API
 builder.Services.AddHttpClient("ProductsApi", client =>
 {
     client.BaseAddress = new Uri("http://localhost:5142/");
@@ -26,6 +26,7 @@ builder.Services.AddHttpClient("ProductsApi", client =>
     );
 });
 
+//Adds HttoClient for Orders API
 builder.Services.AddHttpClient("OrdersApi", client =>
 {
     client.BaseAddress = new Uri("http://localhost:5050/");

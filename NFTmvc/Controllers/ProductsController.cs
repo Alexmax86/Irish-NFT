@@ -1,9 +1,6 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using NFTmvc.Models;
 using NFTmvc.Areas.Identity.Data;
-using Newtonsoft.Json;
-using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using NFTmvc.Data;
 using Microsoft.AspNetCore.Identity;
@@ -20,6 +17,8 @@ public class ProductsController : Controller
     private readonly UserManager<IdentityUser> _userManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
+    //Injects userManager and httpContextAccessor to retrieve User id from current session
+    //Injects API helper to manage API calls, _context for access to DB
     public ProductsController(NFTmvcIdentityDbContext context, IHttpClientFactory clientFactory, ILogger<HomeController> logger, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
@@ -29,7 +28,7 @@ public class ProductsController : Controller
         _userManager = userManager;
         _httpContextAccessor = httpContextAccessor;
     }
-
+    //Returns view with all the products
     public async Task<IActionResult> Products()
     {
         IEnumerable<Product> products = await _apiHelper.GetAllProductsAsync();
@@ -39,7 +38,7 @@ public class ProductsController : Controller
         }
         return View(products);
     }
-
+    //Returns view with details of a product
     public async Task<IActionResult> Details(int id)
     {
         Product product = await _apiHelper.GetProductAsync(id);
@@ -49,6 +48,8 @@ public class ProductsController : Controller
         }
         return View(product);
     }
+
+    //To buy a product, the product is marked as sold on the Products API table, and an order is created in the Orders API table
     [Authorize]
     public async Task<IActionResult> Buy(int id)
     {
@@ -62,11 +63,5 @@ public class ProductsController : Controller
             return NotFound();
         }
         return View();
-    }
-
-    public async Task<IActionResult> Usercheck(int id)
-    {        
-        string userId = _userManager.GetUserId(_httpContextAccessor.HttpContext.User);
-        return Content(userId);
-    }    
+    }      
 }

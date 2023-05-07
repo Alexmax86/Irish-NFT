@@ -11,7 +11,9 @@
     <div class="accordion-item">
       <h2 class="accordion-header" id="@accordionId">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
-          #@myModel.OrderId   <strong>@myModel.ProductName</strong>  -  Ordered on: @myModel.OrderDate
+          
+          <p>Order#:@myModel.OrderId <strong>@myModel.ProductName</strong>  -  Ordered on: @myModel.OrderDate</p>
+          
         </button>
       </h2>
       <div id="@collapseId" class="accordion-collapse collapse" aria-labelledby="@accordionId" data-bs-parent="#accordionExample">

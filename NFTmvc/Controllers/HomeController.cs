@@ -24,27 +24,14 @@ public class HomeController : Controller
     }
     
 
-  
     
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-    
+        
     public IActionResult Index()
     {
         return View();
     }
-
-    [Authorize]
-    public ActionResult Loginverification()
-    {
-        return Content("Logged in");
-    }
-
-
-
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

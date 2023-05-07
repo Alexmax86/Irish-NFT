@@ -1,12 +1,14 @@
-@{
-    ViewData["Title"] = "NFT Products";
+@{    
+    ViewData["Title"] = "NFT Products";     
 }
 <h1>@ViewData["Title"]</h1>
 
 <div class="container">
-    <div class="row">        
-        @foreach (var myModel in Model)
-        {
+    <div class="row">  
+
+              
+        @foreach (var myModel in Model)        
+        {            
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card" style="width: 18rem;">
                 <img class="card-img-top" src="@myModel.ImgLink" alt="Card image cap">
@@ -16,7 +18,7 @@
                     <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@myModel.Id" class="btn btn-primary">Buy</a>
                 </div> 
                 </div>
-            </div>
+            </div>            
         }
     </div>
 </div>
