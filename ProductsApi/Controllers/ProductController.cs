@@ -124,23 +124,17 @@ namespace ProductsApi.Controllers
         //Returns all products based on the IDs provided in the call
         [HttpGet("/api/getProductsByIds")]
         public async Task<ActionResult<List<Product>>> GetProductsByIds([FromQuery(Name = "id")] List<int> ids)
-        {
-            
-            if (ids == null || !ids.Any())
-            {
-                return BadRequest("At least one ID must be provided.");
-            }
-
-            
+        {               
             var products = await _context.Products
                 .Where(p => ids.Contains(p.Id))
                 .ToListAsync();
 
-            
+            /*
             if (!products.Any())
             {
                 return NotFound("No products were found with the specified IDs.");
             }
+            */
 
             return Ok(products);
         }

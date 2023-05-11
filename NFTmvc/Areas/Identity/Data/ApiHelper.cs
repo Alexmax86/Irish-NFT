@@ -111,13 +111,7 @@ public class ApiHelper
     //GET request to the Products API. The GET requests passes a batch of IDs. The API is programmed to respond with all the products
     //with matching IDs
     public async Task<List<Product>> GetProductsByIdsAsync(List<int> ids)
-    {
-        
-        if (ids == null || !ids.Any())
-        {
-            throw new ArgumentException("At least one ID must be provided.");
-        } 
-
+    {  
         string queryString = $"?id={string.Join("&id=", ids)}";         
         string requestUri = $"/api/getProductsByIds{queryString}";
         HttpResponseMessage response = await _productsHttpClient.GetAsync(requestUri);
@@ -130,7 +124,8 @@ public class ApiHelper
             return products;
         }
 
-        
+        Console.WriteLine(response.StatusCode);
+        Console.WriteLine(response.ReasonPhrase);
         throw new HttpRequestException($"Failed to get products by IDs. Status code: {response.StatusCode}. Reason: {response.ReasonPhrase}");
     }
 }
