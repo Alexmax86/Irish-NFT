@@ -2,13 +2,19 @@
     ViewData["Title"] = "Details";
 }
 <div class="container">
-    <img class="card-img-top" src="@Model.ImgLink" alt="Card image cap">
-    <p>Name: @Model.Name</p>
-    <p>Description: @Model.Description</p>
-    <p>Author: @Model.CreatedBy</p>
-    <p>Category: @Model.Category</p>
-    <p>Price @Model.Cost</p>
-    <a asp-area="" asp-controller="Products" asp-action="Buy" asp-route-id="@Model.Id" class="btn btn-primary">Buy</a>
+    <div class="row">        
+        <div class="col-md-6">
+            <p><strong>Name:</strong> @Model.Name</p>
+            <p><strong>Description:</strong> @Model.Description</p>
+            <p><strong>Author:</strong> @Model.CreatedBy</p>
+            <p><strong>Category:</strong> @Model.Category</p>
+            <p><strong>Price</strong> @Model.Cost EUR</p>
+            <a asp-area="" asp-controller="Products" asp-action="Buy" asp-route-id="@Model.Id" class="btn btn-primary">Buy</a>
+        </div>
+        <div class="col-md-6">
+            <img class="card-img-top" src="@Model.ImgLink" alt="Card image cap">    
+        </div>
+    </div>
 </div>
 
 

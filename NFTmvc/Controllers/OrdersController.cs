@@ -39,7 +39,10 @@ public class OrdersController : Controller
         {
             productIds.Add(thisOrder.ProductId);
         }
-
+        if (productIds.Count == 0)
+        {
+            return View(productIds);
+        }
         //Calls order APIs with batch of IDs of products to retrieve
         List<Product> boughtProducts = await  _apiHelper.GetProductsByIdsAsync(productIds);
 

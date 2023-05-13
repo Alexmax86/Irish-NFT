@@ -129,12 +129,13 @@ namespace ProductsApi.Controllers
                 .Where(p => ids.Contains(p.Id))
                 .ToListAsync();
 
-            /*
+            
             if (!products.Any())
             {
+                Console.WriteLine("error detected");
                 return NotFound("No products were found with the specified IDs.");
             }
-            */
+            
 
             return Ok(products);
         }
