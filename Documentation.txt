@@ -1,0 +1,39 @@
+  _____      _     _       _   _ ______ _______ 
+ |_   _|    (_)   | |     | \ | |  ____|__   __|
+   | |  _ __ _ ___| |__   |  \| | |__     | |   
+   | | | '__| / __| '_ \  | . ` |  __|    | |   
+  _| |_| |  | \__ \ | | | | |\  | |       | |   
+ |_____|_|  |_|___/_| |_| |_| \_|_|       |_|   
+                                                
+
+##Introduction
+
+- The project is entirely based on Dotnet 7
+- It consists of 3 folder containing three separate projects:
+    - 1 MVC
+    - 2 Apis (Products and Orders Api)
+
+##Usage
+
+- Unzip the folder
+- Open a new terminal
+- For each folder in the project run the following:
+    x Dotnet restore
+    x Dotnet run
+- Navigate in Chrome to the address created by the MVC (http://localhost:5062)
+
+##Features
+
+- Keep in mind that Products and Order data is reset and seeded again every time the 2 APIs start, identity table is not.
+- The 2 APIs have swagger support
+- Port mapping:
+    x MVC           : 5062
+    x Products API  : 5142
+    x Orders API    : 5050
+- In case any port is not available:
+    x MVC can run on any other port
+    x If the ports for Products and Orders are unavailable and must be changed, just make sure to align the MVC reference to the 
+    APIs at line 20 and 32  of Program.CS
+
+
+
