@@ -7,7 +7,7 @@ public static class SeedData
 {
     public static void Initialize(IServiceProvider serviceProvider)
     {
-        Console.WriteLine("Seed data function here!!!");
+        Console.WriteLine("Seeding data...");
         using (var context = new OrdersDbContext(
         serviceProvider.GetRequiredService<
         DbContextOptions<OrdersDbContext>>()))

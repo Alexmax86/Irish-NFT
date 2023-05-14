@@ -50,9 +50,10 @@ namespace OrdersApi.Controllers
             return order;
         }
         
+        //Returns series of order filtered by user ID
         [HttpGet]
         [Route("getOrdersByUser/{userId}")]
-        public async Task<ActionResult<List<Order>>> GetOrdersByUser(string userId)
+        public ActionResult<List<Order>> GetOrdersByUser(string userId)
         {
           if (_context.Orders == null)
           {

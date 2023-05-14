@@ -28,10 +28,10 @@ public class OrdersController : Controller
     public async Task<IActionResult> Index()
     {
         // retrieves the ID of the current user
-        string userId = _userManager.GetUserId(_httpContextAccessor.HttpContext.User);
+        string? userId = _userManager.GetUserId(_httpContextAccessor.HttpContext!.User);
         
         // fetches all orders from a user
-        List<Order> requestedOrders = await _apiHelper.GetOrdersByUserId(userId);
+        List<Order> requestedOrders = await _apiHelper.GetOrdersByUserId(userId!);
 
         // Extracts Product IDs from the user's orders
         List<int> productIds = new List<int>();        

@@ -4,7 +4,7 @@ namespace NFTmvc.Models
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
-        public string OrderedBy { get; set; }
+        public string? OrderedBy { get; set; }
         public DateTime DateOrdered { get; set; }
     }
 }

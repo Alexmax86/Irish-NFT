@@ -53,9 +53,9 @@ public class ProductsController : Controller
     [Authorize]
     public async Task<IActionResult> Buy(int id)
     {
-        string userId = _userManager.GetUserId(_httpContextAccessor.HttpContext.User);
+        string? userId = _userManager.GetUserId(_httpContextAccessor.HttpContext!.User);
         bool deletion = await _apiHelper.MarkProductAsSoldAsync(id);
-        bool orderCreation = await _apiHelper.CreateOrderAsync(id, userId);
+        bool orderCreation = await _apiHelper.CreateOrderAsync(id, userId!);
         Console.WriteLine(orderCreation);
         Console.WriteLine("Userid = " + userId);
         if (deletion == false)

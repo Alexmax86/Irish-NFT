@@ -12,7 +12,7 @@ namespace ProductsApi.Models
         public string? Category { get; set; }
         public int Cost { get; set; }
 
-        public string ImgLink { get; set; }
+        public string? ImgLink { get; set; }
 
         public bool? Sold { get; set;}
     }

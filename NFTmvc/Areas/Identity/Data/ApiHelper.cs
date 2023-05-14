@@ -13,7 +13,7 @@ public class ApiHelper
     private readonly HttpClient _productsHttpClient;
     private readonly HttpClient _ordersHttpClient;    
 
-    //Injects clientfactories for the 2 API dependencies
+    //Injects client factories for the 2 API dependencies
     public ApiHelper(IHttpClientFactory clientFactory)
     {
         _clientFactory = clientFactory;
@@ -34,10 +34,10 @@ public class ApiHelper
         HttpResponseMessage response = await _productsHttpClient.SendAsync(request);
         if (response.IsSuccessStatusCode)
         {
-            Product requestedProduct = await response.Content.ReadFromJsonAsync<Product>();
-            return requestedProduct;
+            Product? requestedProduct = await response.Content.ReadFromJsonAsync<Product>();
+            return requestedProduct!;
         }
-        return null;
+        return null!;
     }
 
     //Gets all products from the API
@@ -48,10 +48,10 @@ public class ApiHelper
         HttpResponseMessage response = await _productsHttpClient.SendAsync(request);
         if (response.IsSuccessStatusCode)
         {
-            IEnumerable<Product> products = await response.Content.ReadFromJsonAsync<IEnumerable<Product>>();
-            return products.Where(p => p.Sold == false); 
+            IEnumerable<Product>? products = await response.Content.ReadFromJsonAsync<IEnumerable<Product>>();
+            return products!.Where(p => p.Sold == false); 
         }
-        return null;
+        return null!;
     }
 
     //Creates new order in Orders Api
@@ -83,10 +83,10 @@ public class ApiHelper
         
         if (response.IsSuccessStatusCode)
         {
-            List<Order> requestedOrders = await response.Content.ReadFromJsonAsync<List<Order>>();
-            return requestedOrders;
+            List<Order>? requestedOrders = await response.Content.ReadFromJsonAsync<List<Order>>();
+            return requestedOrders!;
         }
-        return null;
+        return null!;
 
     }
 
@@ -120,8 +120,8 @@ public class ApiHelper
         if (response.IsSuccessStatusCode)
         {
             
-            List<Product> products = await response.Content.ReadFromJsonAsync<List<Product>>();
-            return products;
+            List<Product>? products = await response.Content.ReadFromJsonAsync<List<Product>>();
+            return products!;
         }
 
         Console.WriteLine(response.StatusCode);
